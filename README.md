@@ -1,8 +1,8 @@
-# @tinkerdesk/types
+# tinkerdesk-types
 
 TinkerDesk 开发者类型定义包——**工具 / 能力提供者 / 工坊应用**三个可扩展领域的开发者类型约束。
 
-纯类型声明（零运行时）——第三方扩展开发时 `npm i @tinkerdesk/types` 后实现/继承对应接口。
+纯类型声明（零运行时）——第三方扩展开发时 `npm i tinkerdesk-types` 后实现/继承对应接口。
 
 ## 内容
 
@@ -15,11 +15,11 @@ TinkerDesk 开发者类型定义包——**工具 / 能力提供者 / 工坊应�
 ## 使用
 
 ```bash
-npm i @tinkerdesk/types
+npm i tinkerdesk-types
 ```
 
 ```typescript
-import type { IAgentTool, ToolSchema, ToolContext, ToolResult } from '@tinkerdesk/types'
+import type { IAgentTool, ToolSchema, ToolContext, ToolResult } from 'tinkerdesk-types'
 
 export class AppNoteCreateTool implements IAgentTool {
   getSchema(): ToolSchema {

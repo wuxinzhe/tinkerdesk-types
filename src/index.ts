@@ -1,5 +1,5 @@
 /**
- * @tinkerdesk/types — TinkerDesk 开发者类型定义包
+ * tinkerdesk-types — TinkerDesk 开发者类型定义包
  *
  * 三个可扩展领域（工具 / 能力提供者 / 工坊应用）的开发者类型约束：
  *   - 工具（Tool）：IAgentTool / ToolSchema / ToolResult / ToolContext ...

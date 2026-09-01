@@ -1,5 +1,5 @@
 {
-  "name": "@tinkerdesk/types",
+  "name": "tinkerdesk-types",
   "version": "0.1.0",
   "description": "TinkerDesk 开发者类型定义包——工具/提供者/工坊应用扩展开发类型约束（纯类型声明）",
   "type": "module",
