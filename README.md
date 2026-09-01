@@ -9,7 +9,7 @@ TinkerDesk 开发者类型定义包——**工具 / 能力提供者 / 工坊应�
 | 模块 | 领域 | 类型 |
 |------|------|------|
 | `tool` | 工具（tinkerdesk-tool-*） | `IAgentTool` / `ToolSchema` / `ToolResult` / `ToolContext` / `ToolCheckResult` / `ToolPackageManifest` |
-| `provider` | 能力提供者 | `SearchProvider` / `ExtractProvider` / `SearchResultItem` / `WebSearchResponseData` / `ExtractResultItem` |
+| `provider` | 能力提供者 | `TinkerProvider`（根契约——init/check/start/stop）/ `ProviderContext` / `ProviderManifest` / `ConfigSchema` / `ProviderCheckResult` |
 | `app` | 工坊应用（tinkerdesk-app-*） | `AppManifest` / `AppSeat` / `AppToolsJson` |
 
 ## 使用
