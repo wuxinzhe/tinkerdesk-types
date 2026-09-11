@@ -4,15 +4,24 @@
   "description": "TinkerDesk 开发者类型定义包——工具/提供者/应用/应用 SDK 对外扩展类型约束（纯类型声明）",
   "type": "module",
   "types": "dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "check": "tsc -p tsconfig.samples.json",
     "prepublishOnly": "npm run check && npm run build"
   },
-  "keywords": ["tinkerdesk", "types", "tool", "provider", "app", "sdk"],
+  "keywords": [
+    "tinkerdesk",
+    "types",
+    "tool",
+    "provider",
+    "app",
+    "sdk"
+  ],
   "license": "MIT",
   "devDependencies": {
-    "typescript": "^5.8.3"
+    "typescript": "^7.0.2"
   }
 }

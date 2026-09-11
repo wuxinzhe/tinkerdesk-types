@@ -64,7 +64,7 @@ const manifest: AppManifest = {
   name: '我的工作台',
   version: '0.1.0',
   apiVersion: 1,
-  kind: 'app',
+  type: 'app',
   ui: { entry: 'ui/index.html' },
   backend: { baseUrl: 'http://127.0.0.1:4399' },
   configSchema: {

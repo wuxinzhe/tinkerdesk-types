@@ -45,8 +45,8 @@ export interface AppManifest {
   name?: string;
   version?: string;
   apiVersion?: number;
-  /** 包类型——应用固定 "app"（安装器据此分流到 apps 目录） */
-  kind?: string;
+  /** 包类型——应用固定 'app'（安装器据此分流到 apps 目录） */
+  type?: string;
   description?: string;
   author?: string;
   /** 前端入口（平台以 tdapp://<appId>/ 静态托管该目录） */

@@ -65,7 +65,8 @@ export interface ProviderManifest {
   apiVersion: number;
   /** 入口文件（相对包根） */
   entry: string;
-  kind?: string;
+  /** 包类型——provider 固定 'provider' */
+  type?: string;
   /** 是否需要在主进程加载 */
   requiresMain?: boolean;
   /** 能力标签（如 ["stt", "tts"]——展示与筛选用） */

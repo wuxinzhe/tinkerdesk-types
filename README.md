@@ -51,14 +51,14 @@ class MyTool implements IAgentTool {
 export default new MyTool();
 ```
 
-包内 `manifest.json`（`kind: "tool"`）：
+包内 `manifest.json`（`type: "tool"`）：
 
 ```json
 {
   "id": "my-tool",
   "entry": "dist/index.js",
   "apiVersion": 1,
-  "kind": "tool",
+  "type": "tool",
   "tool": { "name": "my_tool", "displayName": "我的工具", "description": "…", "categories": ["utility"] }
 }
 ```
@@ -85,7 +85,7 @@ export default class MyProvider implements TinkerProvider {
 
 ## 应用
 
-`manifest.json` 是平台对该应用的唯一静态声明（`kind: "app"`）。
+`manifest.json` 是平台对该应用的唯一静态声明（`type: "app"`）。
 
 ```json
 {
@@ -93,7 +93,7 @@ export default class MyProvider implements TinkerProvider {
   "name": "我的工作台",
   "version": "0.1.0",
   "apiVersion": 1,
-  "kind": "app",
+  "type": "app",
   "ui": { "entry": "ui/index.html" },
   "backend": { "baseUrl": "http://127.0.0.1:4399" },
   "configSchema": {
@@ -145,6 +145,6 @@ const res = await window.tinkerApp.http.request({ path: '/hello' });
 
 | 版本 | 变更 |
 |---|---|
-| 0.2.0 | 应用 manifest 对齐现模型（`kind` / `ui.entry` / `backend.baseUrl` / `vocation` 单数 / `configSchema`）；新增 `sdk`（`AppSdk` / `TinkerAppSdk` / `HttpRequest` / `HttpResponse` / `CapabilityErrorCode`）；provider 补 `dispose()`、`ProviderCheckResult.checks`；tool 的 `check` 允许 boolean、`ToolContext` 补 `app` |
+| 0.2.0 | 包类型字段统一为 `type`（原 `kind`）；应用 manifest 对齐现模型（`ui.entry` / `backend.baseUrl` / `vocation` 单数 / `configSchema`）；新增 `sdk`（`AppSdk` / `TinkerAppSdk` / `HttpRequest` / `HttpResponse` / `CapabilityErrorCode`）；provider 补 `dispose()`、`ProviderCheckResult.checks`；tool 的 `check` 允许 boolean、`ToolContext` 补 `app` |
 | 0.1.1 | provider 只保留根契约（去掉业务封装类型） |
 | 0.1.0 | 首版（tool / provider / app） |

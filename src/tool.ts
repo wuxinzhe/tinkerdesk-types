@@ -71,8 +71,8 @@ export interface ToolPackageManifest {
   /** 入口文件（相对包根，如 dist/index.js） */
   entry?: string;
   apiVersion?: number;
-  /** 包类型——工具固定 "tool" */
-  kind?: string;
+  /** 包类型——工具固定 'tool' */
+  type?: string;
   tool?: {
     name?: string;
     displayName?: string;
