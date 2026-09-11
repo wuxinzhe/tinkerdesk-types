@@ -51,9 +51,14 @@ export interface AppManifest {
   author?: string;
   /** 前端入口（平台以 tdapp://<appId>/ 静态托管该目录） */
   ui?: { entry?: string };
-  /** 后端服务基址（应用真相源——安装时预填进配置的 baseUrl 项） */
-  backend?: { baseUrl?: string };
-  /** 配置声明（平台据此渲染「应用设置」表单；工具经 ctx.app.config 取用） */
+  /**
+   * 配置声明（平台据此渲染「应用设置」表单；工具经 ctx.app.config 取用）
+   *
+   * ⚠️ **必须声明系统预留字段** `baseUrl` 与 `apiToken`——可以不填值，但字段要在：
+   * 平台能力（`ctx.app.http.request` / `window.tinkerApp.http.request`）靠它们访问应用自己的后端。
+   * `apiToken` 必须 `type: 'secret'`（值只在平台主进程，应用代码拿不到）。
+   * 缺字段或 apiToken 非 secret → 安装/更新被拒绝。
+   */
   configSchema?: AppConfigSchema;
   /** 职业声明（一个应用一个职业——职业 id = 应用 id） */
   vocation?: {

@@ -66,12 +66,11 @@ const manifest: AppManifest = {
   apiVersion: 1,
   type: 'app',
   ui: { entry: 'ui/index.html' },
-  backend: { baseUrl: 'http://127.0.0.1:4399' },
   configSchema: {
     required: ['baseUrl'],
     properties: {
       baseUrl: { type: 'string', title: '后端基址' },
-      token: { type: 'secret', title: '访问令牌' },
+      apiToken: { type: 'secret', title: '访问令牌' },
     },
   },
   vocation: { displayName: '问候', prompt: 'prompts/vocation.hbs' },
