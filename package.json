@@ -1,8 +1,7 @@
 {
   "name": "tinkerdesk-types",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "TinkerDesk 开发者类型定义包——工具/提供者/应用/应用 SDK 对外扩展类型约束（纯类型声明）",
-  "type": "module",
   "types": "dist/index.d.ts",
   "files": [
     "dist"

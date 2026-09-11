@@ -144,6 +144,7 @@ const res = await window.tinkerApp.http.request({ path: '/hello' });
 
 | 版本 | 变更 |
 |---|---|
+| 0.2.2 | 去掉 `"type": "module"`（纯类型包无需 ESM 标记；CJS 消费者 `import type` 不再报 TS1541） |
 | 0.2.1 | 应用 manifest 去掉 `backend`（默认基址写进 `configSchema` 的 `default`）；令牌字段统一为 `apiToken`，与 `baseUrl` 一起列为系统预留配置键（必须在 `configSchema` 里声明） |
 | 0.2.0 | 包类型字段统一为 `type`（原 `kind`）；应用 manifest 对齐现模型（`ui.entry` / `backend.baseUrl` / `vocation` 单数 / `configSchema`）；新增 `sdk`（`AppSdk` / `TinkerAppSdk` / `HttpRequest` / `HttpResponse` / `CapabilityErrorCode`）；provider 补 `dispose()`、`ProviderCheckResult.checks`；tool 的 `check` 允许 boolean、`ToolContext` 补 `app` |
 | 0.1.1 | provider 只保留根契约（去掉业务封装类型） |
