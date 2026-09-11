@@ -1,63 +1,87 @@
 /**
  * tool.ts — 工具（Tool）扩展类型约束
  *
- * 第三方工具包（tinkerdesk-tool-*）实现 IAgentTool 接入 TinkerDesk。
- * 纯类型声明——零运行时——工具实现侧自包含（Node 标准库）。
+ * 第三方工具包（tinkerdesk-tool-* 或应用包内的 tools/<name>/）导出一个实现 IAgentTool 的工具：
+ *   入口模块导出默认实例，或导出 `tool` 字段（平台按 mod.tool ?? mod.default 取）。
+ * 工具实现侧自包含（只用 Node 标准库即可接入）。
+ * 纯类型声明——零运行时。
  */
+import type { AppSdk } from './sdk';
 
-/** 工具 Schema（LLM 工具描述——与 OpenAI function calling 兼容形态） */
+/** 工具 Schema（LLM 工具描述——OpenAI function calling 兼容形态） */
 export interface ToolSchema {
-  name: string
-  description: string
-  parameters: Record<string, unknown> | null
+  name: string;
+  description: string;
+  parameters: Record<string, unknown> | null;
   /** 序列化为 OpenAI function calling 格式 */
-  toFunctionCallingFormat(): Record<string, unknown>
+  toFunctionCallingFormat(): Record<string, unknown>;
 }
 
-/** 工具执行结果（驱动引擎控制循环——isAsync 表示已派发等待回调） */
+/** 工具执行结果（async=true 表示已派发、等回调再续跑） */
 export interface ToolResult {
-  async: boolean
-  result: string
+  async: boolean;
+  /** 结果字符串（直接作为工具结果发给 LLM） */
+  result: string;
 }
 
-/** 工具执行上下文（execute 入参——含本次调用的参数） */
+/** 工具执行上下文（execute 入参——平台内部字段更多，此处只声明开发者面） */
 export interface ToolContext {
-  sessionId: string
-  profile: string
-  toolCall?: {
-    name?: string
-    arguments?: Record<string, unknown>
-  }
-  [key: string]: unknown
+  sessionId: string;
+  profile: string;
+  conversationId?: string;
+  /** 本次待执行的工具调用 */
+  toolCall: {
+    name: string;
+    id: string;
+    /** 工具入参（LLM 依据 Schema 生成） */
+    arguments: Record<string, unknown>;
+  };
+  /** 应用上下文（仅 app_<appId>_* 工具带——平台按应用配置解析后注入） */
+  app?: AppSdk;
+  [key: string]: unknown;
 }
 
-/** 工具可用性检测结果（check 可返回——reason 给管理页展示） */
+/** 工具可用性检测结果（ok=false 时不入池，reason 展示给用户） */
 export interface ToolCheckResult {
-  ok: boolean
-  reason?: string
+  ok: boolean;
+  reason?: string;
 }
 
-/** Agent 工具 SPI 接口（所有工具需实现——内置/外置/声明式统一契约） */
+/** Agent 工具 SPI 接口（所有工具需实现——内置/外置同一契约） */
 export interface IAgentTool {
-  /** 获取工具的 Schema 定义（用于向 LLM 描述工具） */
-  getSchema(): ToolSchema
-  /** 执行工具调用，返回字符串结果（将直接发送给 LLM） */
-  execute(ctx: ToolContext): Promise<ToolResult>
-  /** 可用性检测（注册时调用；不可用工具不入池） */
-  check?(): ToolCheckResult | boolean
+  /** 获取工具 Schema（向 LLM 描述这个工具） */
+  getSchema(): ToolSchema;
+  /** 执行工具调用 */
+  execute(ctx: ToolContext): Promise<ToolResult> | ToolResult;
+  /**
+   * 可用性检测（注册时调用；不可用工具不入池）
+   *
+   * 可返回 boolean 简写：true = 可用，false = 不可用（原因记为「check 失败」）。
+   */
+  check?(): ToolCheckResult | boolean;
 }
 
-/** 工具包 manifest（tinkerdesk-tool-* 包内 manifest.json 结构） */
+/** 工具包 manifest（tinkerdesk-tool-* 包内 manifest.json） */
 export interface ToolPackageManifest {
-  id: string
-  entry: string
-  apiVersion?: number
-  kind?: string
+  id: string;
+  /** 入口文件（相对包根，如 dist/index.js） */
+  entry?: string;
+  apiVersion?: number;
+  /** 包类型——工具固定 "tool" */
+  kind?: string;
   tool?: {
-    name?: string
-    displayName?: string
-    description?: string
-    categories?: string[]
-  }
-  assetDeps?: Array<{ name: string; dest: string; optional?: boolean; sizeMB?: number }>
+    name?: string;
+    displayName?: string;
+    description?: string;
+    categories?: string[];
+  };
+  assetDeps?: ToolAssetDep[];
+}
+
+/** 工具资源依赖（安装时下载） */
+export interface ToolAssetDep {
+  name: string;
+  dest: string;
+  optional?: boolean;
+  sizeMB?: number;
 }
