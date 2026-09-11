@@ -24,11 +24,16 @@ export interface ToolResult {
   result: string;
 }
 
-/** 工具执行上下文（execute 入参——平台内部字段更多，此处只声明开发者面） */
+/**
+ * 工具执行上下文（execute 入参——平台内部字段更多，此处只声明**开发者可用面**）
+ *
+ * 只声明允许工具依赖的字段：平台内部还有大量运行期字段，但那是平台的事，
+ * 第三方工具不应依赖（所以这里没有开放索引签名）。
+ */
 export interface ToolContext {
   sessionId: string;
   profile: string;
-  conversationId?: string;
+  conversationId: string;
   /** 本次待执行的工具调用 */
   toolCall: {
     name: string;
@@ -38,7 +43,6 @@ export interface ToolContext {
   };
   /** 应用上下文（仅 app_<appId>_* 工具带——平台按应用配置解析后注入） */
   app?: AppSdk;
-  [key: string]: unknown;
 }
 
 /** 工具可用性检测结果（ok=false 时不入池，reason 展示给用户） */
